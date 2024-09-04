@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        /* Apply general styles to the body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: url("https://png.pngtree.com/background/20210717/original/pngtree-student-education-tool-background-picture-image_1437242.jpg") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Style for the header and navigation bar */
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Form styling */
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        small {
+            display: block;
+            margin-top: 5px;
+            color: red;
+        }
+
+        footer {
+            display: none; /* Hide the footer for the registration page */
+        }
+
+        /* Popup styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="registration.html">Registration</a>
+            <a href="search.html">Search</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </header>
+
+    <form id="registrationForm">
+        <h1>Registration Form</h1>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="rollNumber">Roll Number:</label>
+        <input type="text" id="rollNumber" name="rollNumber" required>
+
+        <label for="class">Class:</label>
+        <input type="text" id="class" name="class" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Select">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="attendance">Attendance (%):</label>
+        <input type="number" id="attendance" name="attendance" min="0" max="100" required>
+
+        <label for="academic">Academic (%):</label>
+        <input type="number" id="academic" name="academic" min="0" max="100" required>
+
+        <label for="performance">Performance:</label>
+        <select id="performance" name="performance" required>
+            <option value="Select">Select</option>
+            <option value="Satisfactory">Satisfactory</option>
+            <option value="Good">Good</option>
+            <option value="Average">Average</option>
+        </select>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" required>
+        <small id="mobileHelp">Mobile number must be exactly 10 digits.</small>
+
+        <label for="email">Mail ID:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="councillor">Councillor (Teacher Name):</label>
+        <input type="text" id="councillor" name="councillor" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <small id="passwordHelp">Password must be exactly 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.</small>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="popup" id="popup">
+        <p id="popupMessage">A student with these credentials already exists.</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.getElementById('popup').classList.remove('active');
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents form submission
+
+            // Mobile number validation
+            const mobile = document.getElementById('mobile').value;
+            const mobileHelp = document.getElementById('mobileHelp');
+            const mobilePattern = /^\d{10}$/;
+
+            if (!mobilePattern.test(mobile)) {
+                mobileHelp.style.display = 'block';
+                return; // Prevent form submission if invalid
+            } else {
+                mobileHelp.style.display = 'none';
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            const passwordHelp = document.getElementById('passwordHelp');
+
+            // Password validation pattern
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (!passwordPattern.test(password)) {
+                passwordHelp.style.display = 'block';
+                return; // Prevent form submission if invalid
+            } else {
+                passwordHelp.style.display = 'none';
+            }
+
+            // Prepare form data
+            const formData = {
+                name: document.getElementById('name').value,
+                rollNumber: document.getElementById('rollNumber').value,
+                class: document.getElementById('class').value,
+                gender: document.getElementById('gender').value,
+                attendance: document.getElementById('attendance').value,
+                academic: document.getElementById('academic').value,
+                performance: document.getElementById('performance').value,
+                mobile: document.getElementById('mobile').value,
+                email: document.getElementById('email').value,
+                councillor: document.getElementById('councillor').value,
+                password: document.getElementById('password').value
+            };
+
+            // Logic to submit form data via AJAX
+            fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    if (data.error === 'Student already exists') {
+                        document.getElementById('popup').classList.add('active');
+                    } else {
+                        alert(`Error: ${data.error}`);
+                    }
+                } else {
+                    alert('Registration successful!');
+                    document.getElementById('registrationForm').reset(); // Reset the form
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred. Please try again.');
+            });
+        });
+
+        // Hide the mobileHelp and passwordHelp initially
+        document.getElementById('mobileHelp').style.display = 'none';
+        document.getElementById('passwordHelp').style.display = 'none';
+    </script>
+</body>
+</html>
