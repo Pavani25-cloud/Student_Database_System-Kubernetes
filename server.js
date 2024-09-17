@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/studentDB', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongodb:27017/studentDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {

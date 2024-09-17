@@ -1,0 +1,7 @@
+db.students.find().pretty()
+show collections
+use studentDB
+db.students.find().pretty()
+show collections
+use studentDB
+show databases
