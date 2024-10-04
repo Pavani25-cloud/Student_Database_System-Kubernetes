@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-and-mongodb-deployment
+  name: student-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: app-and-mongodb
+      app: student-and-mongodb
   template:
     metadata:
       labels:
-        app: app-and-mongodb
+        app: student-and-mongodb
     spec:
       containers:
-      - name: nodejs-app
+      - name: student-app
         image: pavaniguthula/student-db:latest
         ports:
         - containerPort: 3000
